@@ -26,7 +26,7 @@ type epoll struct {
 	idx     int
 }
 
-func MkEpoll() (*epoll, error) {
+func MkEpoll(idx int) (*epoll, error) {
 	fd, err := unix.EpollCreate1(0)
 	if err != nil {
 		return nil, err
@@ -55,6 +55,7 @@ func MkEpoll() (*epoll, error) {
 		eventFD: eventFD,
 		fdconns: make(map[int]*Conn),
 		efdbuf:  make([]byte, 8),
+		idx:     idx,
 	}, nil
 }
 
